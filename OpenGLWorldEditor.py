@@ -69,9 +69,9 @@ class StarBackground:
         glLoadIdentity()
         
         # Apply camera rotation to the stars (but not position)
-        glRotatef(camera_pitch * 0.5, 1, 0, 0)  # Reduced vertical movement
-        glRotatef(camera_yaw * 0.5, 0, 1, 0)    # Reduced horizontal movement
-        glRotatef(model_angle * 0.1, 0, 1, 0)   # Slow background rotation
+        glRotatef(-camera_pitch * 1, 1, 0, 0)  # Reduced vertical movement
+        glRotatef(camera_yaw * 1, 0, 1, 0)    # Reduced horizontal movement
+        #glRotatef(model_angle * 0.1, 0, 1, 0)   # Slow background rotation
         
         glPointSize(2.0)
         glBegin(GL_POINTS)
