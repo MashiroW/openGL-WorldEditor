@@ -717,7 +717,7 @@ class OpenGLWidget(QGLWidget):
     def auto_rotate_update(self):
         if self.auto_rotate:
             # Only modify yaw (horizontal rotation) - leave pitch unchanged
-            self.camera_yaw += 0.5  # Adjust this value to control rotation speed
+            self.camera_yaw += 0.25  # Adjust this value to control rotation speed
             self.update()  # Force redraw
         
         # Handle movement keys as before
@@ -821,14 +821,22 @@ class OpenGLWidget(QGLWidget):
             dx = event.x() - self.last_pos.x()
             dy = event.y() - self.last_pos.y()
             
+            # Original unmodified rotation calculations
             self.camera_yaw += dx * self.camera_sensitivity
             self.camera_pitch -= dy * self.camera_sensitivity
             
-            # Constrain pitch to avoid gimbal lock
+            # Allow continuous yaw rotation
+            self.camera_yaw %= 360  # Keep yaw within 0-360° range
+            
+            # Constrain pitch
             self.camera_pitch = max(-89.0, min(89.0, self.camera_pitch))
             
             self.last_pos = event.pos()
             self.update()
+            
+            # Update GUI controls
+            if self.parent_window:
+                self.parent_window.update_camera_controls()
 
     def reset_view(self):
         self.camera_pos = [0.0, 0.0, 5.0]  # Start slightly back from origin
@@ -891,10 +899,11 @@ class OpenGLWidget(QGLWidget):
             scene_data = {
                 'models': {},
                 'lights': {},
+                # Update camera section to use pitch/yaw instead of rot_x/rot_y
                 'camera': {
                     'pos': self.camera_pos,
-                    'rot_x': self.camera_rot_x,
-                    'rot_y': self.camera_rot_y,
+                    'pitch': self.camera_pitch,  # Save actual pitch value
+                    'yaw': self.camera_yaw,      # Save actual yaw value
                     'distance': self.camera_distance
                 },
                 'settings': {
@@ -996,11 +1005,10 @@ class OpenGLWidget(QGLWidget):
                 light.enabled = light_data.get('enabled', True)
                 light.show_marker = light_data.get('show_marker', True)
             
-            # Load camera
             camera = scene_data.get('camera', {})
             self.camera_pos = camera.get('pos', [0.0, 0.0, 0.0])
-            self.camera_rot_x = camera.get('rot_x', 30.0)
-            self.camera_rot_y = camera.get('rot_y', 30.0)
+            self.camera_pitch = camera.get('pitch', 0.0)      # Load pitch
+            self.camera_yaw = camera.get('yaw', -90.0)        # Load yaw (default looking along -Z)
             self.camera_distance = camera.get('distance', 5.0)
             
             # Load settings
@@ -1089,42 +1097,44 @@ class OpenGLWidget(QGLWidget):
             self.down = False
 
     def update_camera_position(self):
-        # Calculate camera front vector
+        # Keep original movement code intact
         front_x = math.cos(math.radians(self.camera_yaw)) * math.cos(math.radians(self.camera_pitch))
         front_y = math.sin(math.radians(self.camera_pitch))
         front_z = math.sin(math.radians(self.camera_yaw)) * math.cos(math.radians(self.camera_pitch))
         front = [front_x, front_y, front_z]
         
-        # Normalize front vector
         front_mag = math.sqrt(front_x**2 + front_y**2 + front_z**2)
         front = [x/front_mag for x in front]
         
-        # Calculate right vector (perpendicular to front and world up)
-        right = np.cross(front, [0, 1, 0])  # Cross product with world up vector
+        right = np.cross(front, [0, 1, 0])
         right_mag = math.sqrt(right[0]**2 + right[1]**2 + right[2]**2)
         right = [x/right_mag for x in right]
         
         move_speed = self.camera_speed
         
-        # Movement - now properly using front and right vectors
-        if self.forward:  # Z key
+        # Original movement logic
+        if self.forward:
             self.camera_pos[0] += front[0] * move_speed
             self.camera_pos[1] += front[1] * move_speed
             self.camera_pos[2] += front[2] * move_speed
-        if self.backward:  # S key
+        if self.backward:
             self.camera_pos[0] -= front[0] * move_speed
             self.camera_pos[1] -= front[1] * move_speed
             self.camera_pos[2] -= front[2] * move_speed
-        if self.left:  # Q key - strafe left
+        if self.left:  # Q key
             self.camera_pos[0] -= right[0] * move_speed
             self.camera_pos[2] -= right[2] * move_speed
-        if self.right:  # D key - strafe right
+        if self.right:  # D key
             self.camera_pos[0] += right[0] * move_speed
             self.camera_pos[2] += right[2] * move_speed
-        if self.up:  # Space key
+        if self.up:
             self.camera_pos[1] += move_speed
-        if self.down:  # Shift key
+        if self.down:
             self.camera_pos[1] -= move_speed
+
+        # Add GUI update
+        if hasattr(self, 'parent_window') and self.parent_window:
+            self.parent_window.update_camera_controls()
 
     def draw_position_gizmo(self, model):
         if not model or not model.visible:
@@ -1270,14 +1280,14 @@ class MainWindow(QMainWindow):
         camera_layout.addRow("Distance:", self.cam_dist_spin)
         
         self.cam_rot_x_spin = QDoubleSpinBox()
-        self.cam_rot_x_spin.setRange(-180, 180)
-        self.cam_rot_x_spin.setValue(30.0)
-        camera_layout.addRow("X Rotation:", self.cam_rot_x_spin)
+        self.cam_rot_x_spin.setRange(-999999999999, 999999999999)
+        self.cam_rot_x_spin.setValue(0.0)  # Initial pitch value
+        camera_layout.addRow("Pitch:", self.cam_rot_x_spin)  # Changed label
         
         self.cam_rot_y_spin = QDoubleSpinBox()
-        self.cam_rot_y_spin.setRange(-180, 180)
-        self.cam_rot_y_spin.setValue(30.0)
-        camera_layout.addRow("Y Rotation:", self.cam_rot_y_spin)
+        self.cam_rot_y_spin.setRange(-999999999999, 999999999999)
+        self.cam_rot_y_spin.setValue(-90.0)  # Initial yaw value
+        camera_layout.addRow("Yaw:", self.cam_rot_y_spin)  # Changed label
         
         camera_group.setLayout(camera_layout)
         layout.addWidget(camera_group)
@@ -1297,13 +1307,16 @@ class MainWindow(QMainWindow):
         layout.addWidget(options_group)
         
         self.scene_tab.setLayout(layout)
+
+        self.cam_rot_x_spin.valueChanged.connect(self.update_camera_rotation)
+        self.cam_rot_y_spin.valueChanged.connect(self.update_camera_rotation)
         
         self.cam_x_spin.valueChanged.connect(self.update_camera_position)
         self.cam_y_spin.valueChanged.connect(self.update_camera_position)
         self.cam_z_spin.valueChanged.connect(self.update_camera_position)
+
         self.cam_dist_spin.valueChanged.connect(self.update_camera_distance)
-        self.cam_rot_x_spin.valueChanged.connect(self.update_camera_rotation)
-        self.cam_rot_y_spin.valueChanged.connect(self.update_camera_rotation)
+
         self.lighting_check.stateChanged.connect(self.toggle_lighting)
         self.auto_rotate_check.stateChanged.connect(self.toggle_auto_rotate)
 
@@ -1633,12 +1646,31 @@ class MainWindow(QMainWindow):
         self.light_marker_check.stateChanged.connect(self.toggle_light_marker)
 
     def update_camera_controls(self):
+        # Block signals during all updates
+        self.cam_x_spin.blockSignals(True)
+        self.cam_y_spin.blockSignals(True)
+        self.cam_z_spin.blockSignals(True)
+        self.cam_rot_x_spin.blockSignals(True)  # Add this
+        self.cam_rot_y_spin.blockSignals(True)  # Add this
+        
+        # Update position fields
         self.cam_x_spin.setValue(self.opengl_widget.camera_pos[0])
         self.cam_y_spin.setValue(self.opengl_widget.camera_pos[1])
         self.cam_z_spin.setValue(self.opengl_widget.camera_pos[2])
+        
+        # Update rotation fields
+        self.cam_rot_x_spin.setValue(self.opengl_widget.camera_pitch)
+        self.cam_rot_y_spin.setValue(self.opengl_widget.camera_yaw % 360)
+        
+        # Restore signal handling
+        self.cam_x_spin.blockSignals(False)
+        self.cam_y_spin.blockSignals(False)
+        self.cam_z_spin.blockSignals(False)
+        self.cam_rot_x_spin.blockSignals(False)  # Add this
+        self.cam_rot_y_spin.blockSignals(False)  # Add this
+        
+        # Update distance
         self.cam_dist_spin.setValue(self.opengl_widget.camera_distance)
-        self.cam_rot_x_spin.setValue(self.opengl_widget.camera_rot_x)
-        self.cam_rot_y_spin.setValue(self.opengl_widget.camera_rot_y)
 
     def update_camera_position(self):
         self.opengl_widget.camera_pos = [
@@ -1649,8 +1681,9 @@ class MainWindow(QMainWindow):
         self.opengl_widget.update()
 
     def update_camera_rotation(self):
-        self.opengl_widget.camera_rot_x = self.cam_rot_x_spin.value()
-        self.opengl_widget.camera_rot_y = self.cam_rot_y_spin.value()
+        # Directly set pitch/yaw from spin boxes
+        self.opengl_widget.camera_pitch = self.cam_rot_x_spin.value()
+        self.opengl_widget.camera_yaw = self.cam_rot_y_spin.value()
         self.opengl_widget.update()
 
     def update_camera_distance(self):
