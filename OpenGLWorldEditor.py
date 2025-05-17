@@ -1295,7 +1295,7 @@ class MainWindow(QMainWindow):
         options_group = QGroupBox("Scene Options")
         options_layout = QVBoxLayout()
         
-        self.lighting_check = QCheckBox("Enable Lighting")
+        self.lighting_check = QCheckBox("Enable Lighting (experimental)")
         self.lighting_check.setChecked(True)
         options_layout.addWidget(self.lighting_check)
         
