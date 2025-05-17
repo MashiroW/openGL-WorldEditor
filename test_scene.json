@@ -3,8 +3,8 @@
         "hw6_gm_applied": {
             "filename": "models/goblin_house_to_obj/hw6_gm_applied.obj",
             "position": [
-                -0.15,
-                -0.35,
+                -0.14,
+                0.65,
                 -12.0
             ],
             "rotation": [
@@ -21,7 +21,7 @@
             "filename": "models/graveyard_to_obj/hw6_gy.obj",
             "position": [
                 16.0,
-                -0.25,
+                0.5,
                 -2.0
             ],
             "rotation": [
@@ -55,7 +55,7 @@
             "filename": "models/kelthuzad-fanart-by-kent2d/KelThuzad.obj",
             "position": [
                 3.99,
-                -0.39,
+                0.3,
                 -5.0
             ],
             "rotation": [
@@ -105,8 +105,8 @@
         "Floor": {
             "filename": "models/Floor/Floor.obj",
             "position": [
-                3.4000000000000004,
-                -0.76,
+                3.4,
+                0.07,
                 -5.0
             ],
             "rotation": [
@@ -458,14 +458,609 @@
             "visible": true,
             "wireframe": false,
             "display_name": "PineTree_001 (29)"
+        },
+        "PineTree_001 (30)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                23.61,
+                0.06,
+                -1.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (30)"
+        },
+        "PineTree_001 (31)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                23.61,
+                0.06000000000000005,
+                8.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (31)"
+        },
+        "PineTree_001 (32)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                18.61,
+                0.06,
+                16.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (32)"
+        },
+        "PineTree_001 (33)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                12.61,
+                0.06,
+                23.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (33)"
+        },
+        "PineTree_001 (34)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                3.6099999999999994,
+                0.06,
+                28.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (34)"
+        },
+        "PineTree_001 (35)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -5.390000000000001,
+                0.06,
+                31.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (35)"
+        },
+        "PineTree_001 (36)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -12.39,
+                0.06,
+                38.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (36)"
+        },
+        "PineTree_001 (37)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -22.39,
+                0.06,
+                39.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (37)"
+        },
+        "PineTree_001 (38)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -31.39,
+                0.06,
+                37.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (38)"
+        },
+        "PineTree_001 (39)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -38.39,
+                0.06,
+                31.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (39)"
+        },
+        "PineTree_001 (40)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -43.39,
+                0.06,
+                24.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (40)"
+        },
+        "PineTree_001 (41)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -52.39,
+                0.06,
+                20.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (41)"
+        },
+        "PineTree_001 (42)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -59.39,
+                0.06,
+                14.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (42)"
+        },
+        "PineTree_001 (43)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -60.39,
+                0.06,
+                5.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (43)"
+        },
+        "PineTree_001 (44)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -60.39,
+                0.06,
+                -5.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (44)"
+        },
+        "PineTree_001 (45)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -57.39,
+                0.06,
+                -14.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (45)"
+        },
+        "PineTree_001 (46)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -49.39,
+                0.06,
+                -17.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (46)"
+        },
+        "PineTree_001 (47)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -41.39,
+                0.06,
+                -21.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (47)"
+        },
+        "PineTree_001 (48)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -37.39,
+                0.06,
+                -30.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (48)"
+        },
+        "PineTree_001 (49)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -29.39,
+                0.06,
+                -33.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (49)"
+        },
+        "PineTree_001 (50)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -20.39,
+                0.06,
+                -34.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (50)"
+        },
+        "PineTree_001 (51)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -11.39,
+                0.06,
+                -33.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (51)"
+        },
+        "PineTree_001 (52)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                -6.390000000000001,
+                0.06,
+                -27.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (52)"
+        },
+        "PineTree_001 (53)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                2.6100000000000003,
+                0.06,
+                -26.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (53)"
+        },
+        "PineTree_001 (54)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                11.61,
+                0.06,
+                -23.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (54)"
+        },
+        "PineTree_001 (55)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                16.61,
+                0.06,
+                -16.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (55)"
+        },
+        "PineTree_001 (56)": {
+            "filename": "models/PineTree_001_obj/PineTree_001.obj",
+            "position": [
+                21.61,
+                0.06,
+                -9.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.03,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "PineTree_001 (56)"
+        },
+        "Floor (1)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                77.0,
+                0.07,
+                -5.0
+            ],
+            "rotation": [
+                0.0,
+                90.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (1)"
+        },
+        "Floor (2)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                77.0,
+                0.07,
+                69.0
+            ],
+            "rotation": [
+                0.0,
+                -180.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (2)"
+        },
+        "Floor (3)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                3.0,
+                0.07,
+                69.0
+            ],
+            "rotation": [
+                0.0,
+                180.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (3)"
+        },
+        "Floor (4)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                -71.0,
+                0.07,
+                69.0
+            ],
+            "rotation": [
+                0.0,
+                90.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (4)"
+        },
+        "Floor (5)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                -70.0,
+                0.07,
+                -5.0
+            ],
+            "rotation": [
+                0.0,
+                90.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (5)"
+        },
+        "Floor (6)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                3.4,
+                0.07,
+                -79.0
+            ],
+            "rotation": [
+                0.0,
+                180.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (6)"
+        },
+        "Floor (7)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                -70.6,
+                0.07,
+                -79.0
+            ],
+            "rotation": [
+                0.0,
+                0.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (7)"
+        },
+        "Floor (8)": {
+            "filename": "models/Floor/Floor.obj",
+            "position": [
+                77.4,
+                0.07,
+                -79.0
+            ],
+            "rotation": [
+                0.0,
+                180.0,
+                0.0
+            ],
+            "scale": 0.29,
+            "visible": true,
+            "wireframe": false,
+            "display_name": "Floor (8)"
         }
     },
     "lights": {
         "Light 1": {
             "position": [
-                -1.4,
-                1.0,
-                -7.9
+                -2.6999999999999993,
+                2.0,
+                -9.7
             ],
             "color": [
                 0.9,
@@ -473,14 +1068,14 @@
                 0.6
             ],
             "brightness": 5.0,
-            "range": 3.9000000000000283,
+            "range": 4.1,
             "enabled": true,
-            "show_marker": true
+            "show_marker": false
         },
         "Light 2": {
             "position": [
                 13.55,
-                1.65,
+                2.6500000000000004,
                 0.84
             ],
             "color": [
@@ -496,7 +1091,7 @@
         "Light 3": {
             "position": [
                 12.2,
-                3.2,
+                4.199999999999999,
                 -2.75
             ],
             "color": [
@@ -512,7 +1107,7 @@
         "Light 4": {
             "position": [
                 20.2,
-                5.65,
+                6.65,
                 0.2
             ],
             "color": [
@@ -523,12 +1118,12 @@
             "brightness": 5.0,
             "range": 2.0000000000000004,
             "enabled": true,
-            "show_marker": true
+            "show_marker": false
         },
         "Light 5": {
             "position": [
                 17.9,
-                10.9,
+                11.9,
                 -6.5
             ],
             "color": [
@@ -539,18 +1134,18 @@
             "brightness": 5.0,
             "range": 1.0,
             "enabled": true,
-            "show_marker": true
+            "show_marker": false
         }
     },
     "camera": {
         "pos": [
-            -1.3457561218704823,
-            0.6560204185945202,
-            5.54324954443341
+            -4.140020659702562,
+            11.16174241561939,
+            9.071003797345412
         ],
-        "rot_x": 20.5,
-        "rot_y": 30.0,
-        "distance": 33.117942000000006
+        "pitch": 19.0,
+        "yaw": 276.25,
+        "distance": 21.73
     },
     "settings": {
         "lighting": true,
