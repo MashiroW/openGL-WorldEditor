@@ -4,6 +4,7 @@ import os
 import random
 import math
 import json
+from pathlib import Path
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QPushButton, QVBoxLayout, 
                            QWidget, QFileDialog, QHBoxLayout, QLabel, QDoubleSpinBox,
                            QSlider, QCheckBox, QGroupBox, QFormLayout, QColorDialog,
@@ -326,6 +327,7 @@ class ModelObject:
             obj['normals'] = normals.astype(np.float32)
 
     def try_load_texture(self):
+
         if not self.filename:
             return False
             
@@ -337,6 +339,7 @@ class ModelObject:
             texture_path = base_path + ext
             if os.path.exists(texture_path):
                 try:
+                    print(texture_path)
                     self.load_texture(texture_path)
                     return True
                 except Exception as e:
@@ -348,6 +351,7 @@ class ModelObject:
         try:
             # Load image file
             image = Image.open(texture_path)
+
             image = image.transpose(Image.FLIP_TOP_BOTTOM)
             img_data = image.convert("RGB").tobytes()
             
@@ -675,13 +679,16 @@ class OpenGLWidget(QGLWidget):
                     glDisable(light.light_id)
         
         # Draw all models
-        for name, model in self.models.items():
-            model.draw()
-            
-            # Draw gizmo for selected model if we're in models tab
-            if (self.parent_window.current_model == name and 
-                self.parent_window.tab_widget.currentIndex() == 1):  # 1 = Models tab index
-                self.draw_position_gizmo(model)
+        try: # Adding try for external use of the editor's functions since it's not gonna be the same GUI
+            for name, model in self.models.items():
+                model.draw()
+                
+                # Draw gizmo for selected model if we're in models tab
+                if (self.parent_window.current_model == name and 
+                    self.parent_window.tab_widget.currentIndex() == 1):  # 1 = Models tab index
+                    self.draw_position_gizmo(model)
+        except:
+            pass
 
         # Draw all light markers
         for light in self.lights.values():
@@ -724,46 +731,6 @@ class OpenGLWidget(QGLWidget):
         if self.forward or self.backward or self.left or self.right or self.up or self.down:
             self.update_camera_position()
             self.update()
-
-    def add_model(self, name, filename=""):
-        if name in self.models:
-            return False
-        model = ModelObject(filename)
-        model.filename = filename  # Ensure filename is set
-        self.models[name] = model
-        self.update()
-        return True
-
-    def remove_model(self, name):
-        if name in self.models:
-            del self.models[name]
-            self.update()
-            return True
-        return False
-
-    def add_light(self, name):
-        if name in self.lights:
-            return False
-        
-        # Find next available light ID (GL_LIGHT1 to GL_LIGHT7)
-        for i in range(1, 8):
-            light_id = GL_LIGHT0 + i
-            if not any(light.light_id == light_id for light in self.lights.values()):
-                light = LightObject()
-                light.setup_light(light_id)
-                self.lights[name] = light
-                self.update()
-                return True
-        return False
-
-    def remove_light(self, name):
-        if name in self.lights:
-            if self.lights[name].light_id:
-                glDisable(self.lights[name].light_id)
-            del self.lights[name]
-            self.update()
-            return True
-        return False
 
     def mousePressEvent(self, event):
         if (event.button() == Qt.LeftButton and 
@@ -962,7 +929,14 @@ class OpenGLWidget(QGLWidget):
 
     def load_scene(self, filename):
         try:
-            with open(filename, 'r') as f:
+            # Chemin absolu du script
+            script_dir = Path(__file__).parent.absolute()
+            
+            # Chemin absolu du fichier JSON
+            scene_path = (script_dir / filename).resolve()
+            print(f"\n[Chargement] Fichier scene: {scene_path}")
+
+            with open(scene_path, 'r') as f:
                 scene_data = json.load(f)
             
             # Clear current scene
@@ -976,8 +950,10 @@ class OpenGLWidget(QGLWidget):
                 
                 # Convert relative path to absolute if needed
                 if model_path and not os.path.isabs(model_path):
-                    model_path = os.path.join(os.path.dirname(os.path.abspath(filename)), model_path)
+                    model_path = (script_dir / model_path).resolve()
                 
+                print(model_path)
+
                 # Create model (even if file doesn't exist - it might be loaded later)
                 model = ModelObject(model_path if os.path.exists(model_path) else "")
                 self.models[display_name] = model
