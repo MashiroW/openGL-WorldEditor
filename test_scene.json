@@ -1143,12 +1143,12 @@
             11.16174241561939,
             9.071003797345412
         ],
-        "pitch": 19.0,
-        "yaw": 276.25,
+        "pitch": -19.5,
+        "yaw": 405.0,
         "distance": 21.73
     },
     "settings": {
         "lighting": true,
-        "auto_rotate": false
+        "auto_rotate": true
     }
 }
