@@ -34,6 +34,7 @@ from PyQt5.QtGui import QSurfaceFormat
 from PIL import Image
 
 from OpenGL.GL import GL_LINES, GL_LINE_WIDTH
+from PyQt5.QtWidgets import QProgressDialog
 
 # Fix for high DPI displays
 os.environ['QT_AUTO_SCREEN_SCALE_FACTOR'] = '1'
@@ -927,8 +928,30 @@ class OpenGLWidget(QGLWidget):
             traceback.print_exc()
             return False
 
-    def load_scene(self, filename):
+    def load_scene(self, filename, parent=None):
         try:
+            # Create progress dialog
+            progress = QProgressDialog("Loading scene...", "Cancel", 0, 100, parent)
+            progress.setWindowTitle("Loading Scene")
+            progress.setWindowModality(Qt.ApplicationModal)
+            progress.setCancelButton(None)
+            progress.setMinimumDuration(0)
+            
+            # Set larger size for the progress bar
+            progress.setFixedSize(500, 120)  # Wider and taller
+            
+            # Center on screen regardless of parent window position
+            screen = QApplication.primaryScreen().availableGeometry()
+            progress.move(
+                screen.left() + (screen.width() - progress.width()) // 2,
+                screen.top() + (screen.height() - progress.height()) // 2
+            )
+            
+            progress.setValue(0)
+            progress.setLabelText("Starting scene loading...")
+            progress.show()
+            QApplication.processEvents()  # Force UI update
+            
             # Chemin absolu du script
             script_dir = Path(__file__).parent.absolute()
             
@@ -936,6 +959,10 @@ class OpenGLWidget(QGLWidget):
             scene_path = (script_dir / filename).resolve()
             print(f"\n[Chargement] Fichier scene: {scene_path}")
 
+            progress.setValue(5)
+            progress.setLabelText("Reading scene data...")
+            QApplication.processEvents()
+            
             with open(scene_path, 'r') as f:
                 scene_data = json.load(f)
             
@@ -944,7 +971,14 @@ class OpenGLWidget(QGLWidget):
             self.lights.clear()
             
             # Load models
-            for internal_name, model_data in scene_data.get('models', {}).items():
+            model_items = list(scene_data.get('models', {}).items())
+            total_models = len(model_items)
+            
+            for i, (internal_name, model_data) in enumerate(model_items):
+                progress.setValue(10 + int(70 * i / max(1, total_models)))
+                progress.setLabelText(f"Loading model {i+1}/{total_models}: {model_data.get('display_name', internal_name)}...")
+                QApplication.processEvents()
+                
                 model_path = model_data.get('filename', '')
                 display_name = model_data.get('display_name', internal_name)
                 
@@ -952,8 +986,6 @@ class OpenGLWidget(QGLWidget):
                 if model_path and not os.path.isabs(model_path):
                     model_path = (script_dir / model_path).resolve()
                 
-                print(model_path)
-
                 # Create model (even if file doesn't exist - it might be loaded later)
                 model = ModelObject(model_path if os.path.exists(model_path) else "")
                 self.models[display_name] = model
@@ -969,8 +1001,11 @@ class OpenGLWidget(QGLWidget):
                 if model_path and os.path.exists(model_path):
                     model.try_load_texture()
             
-            # Rest of the loading code remains the same...
             # Load lights
+            progress.setValue(85)
+            progress.setLabelText("Loading lights...")
+            QApplication.processEvents()
+            
             for name, light_data in scene_data.get('lights', {}).items():
                 light = LightObject()
                 self.lights[name] = light
@@ -980,6 +1015,11 @@ class OpenGLWidget(QGLWidget):
                 light.range = light_data.get('range', 1.0)
                 light.enabled = light_data.get('enabled', True)
                 light.show_marker = light_data.get('show_marker', True)
+            
+            # Load camera and settings
+            progress.setValue(90)
+            progress.setLabelText("Loading camera settings...")
+            QApplication.processEvents()
             
             camera = scene_data.get('camera', {})
             self.camera_pos = camera.get('pos', [0.0, 0.0, 0.0])
@@ -993,9 +1033,15 @@ class OpenGLWidget(QGLWidget):
             self.auto_rotate = settings.get('auto_rotate', True)
             
             # Reinitialize lights
+            progress.setValue(95)
+            progress.setLabelText("Initializing graphics...")
+            QApplication.processEvents()
             self.initializeGL()
-            self.update()
             
+            progress.setValue(100)
+            progress.close()
+            
+            self.update()
             return True
         except Exception as e:
             print(f"Error loading scene: {str(e)}")
